@@ -1,4 +1,4 @@
-![logo](https://raw.githubusercontent.com/unifiedstreaming/origin/master/unifiedstreaming-logo-black.jpg)
+![logo](https://raw.githubusercontent.com/unifiedstreaming/origin/master/unifiedstreaming-logo-black.png)
 
 Unified Packager
 ------------------------------
@@ -15,24 +15,27 @@ Docker usage instructions:
 
 Run a container and pass the usual commands to mp4split.
 
-    docker run \
-      -e USP_LICENSE_KEY=<your_license_key> \
-      -v $PWD:/data \
-      unifiedstreaming/packager \
-      -o /data/<output_filename> \
-      /data/<input_filename>
-
+```bash
+docker run \
+  -e USP_LICENSE_KEY=<your_license_key> \
+  -v $PWD:/data \
+  unifiedstreaming/packager \
+  -o /data/<output_filename> \
+  /data/<input_filename>
+```
 
 Custom images
 ------------------
 You can also build your own images using our Alpine repository:
 
-    FROM alpine:3.4
+```Dockerfile
+FROM alpine:3.4
 
-    # Install packages
-    RUN wget -q -O /etc/apk/keys/alpine@unified-streaming.com.rsa.pub \
-      http://apk.unified-streaming.com/alpine@unified-streaming.com.rsa.pub
+# Install packages
+RUN wget -q -O /etc/apk/keys/alpine@unified-streaming.com.rsa.pub \
+  http://apk.unified-streaming.com/alpine@unified-streaming.com.rsa.pub
 
-    RUN apk --update \
-            --repository http://apk.unified-streaming.com/repo \
-            add mp4split
+RUN apk --update \
+        --repository http://apk.unified-streaming.com/repo \
+        add mp4split
+```
