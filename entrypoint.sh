@@ -2,7 +2,7 @@
 set -e
 
 # validate required variables are set
-if [ ! $USP_LICENSE_KEY ]
+if [ -z "$USP_LICENSE_KEY" ]
   then
   echo >&2 "Error: USP_LICENSE_KEY environment variable is required but not set."
   exit 1
