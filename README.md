@@ -19,7 +19,7 @@ Run a container and pass the usual commands to mp4split.
 docker run \
   -e USP_LICENSE_KEY=<your_license_key> \
   -v $PWD:/data \
-  unifiedstreaming/packager:1.8.5 \
+  unifiedstreaming/packager:1.9.5 \
   -o /data/<output_filename> \
   /data/<input_filename>
 ```
@@ -29,7 +29,7 @@ Custom images
 You can also build your own images using our Alpine repository:
 
 ```Dockerfile
-FROM alpine:3.4
+FROM alpine:3.8
 
 # Install packages
 RUN wget -q -O /etc/apk/keys/alpine@unified-streaming.com.rsa.pub \
