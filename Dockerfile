@@ -7,7 +7,7 @@ RUN wget -q -O /etc/apk/keys/alpine@unified-streaming.com.rsa.pub \
 
 RUN apk --update \
         --repository https://stable.apk.unified-streaming.com/alpine/v3.11 \
-        add mp4split=1.10.18-r0
+        add mp4split=1.10.28-r0
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
