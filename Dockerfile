@@ -9,7 +9,10 @@ RUN apk --update \
         --repository https://stable.apk.unified-streaming.com/alpine/v3.12 \
         add mp4split=1.10.28-r0;
 
+ENV AWS_KEY=
+ENV AWS_SECRET_KEY=
 ENV MNT_POINT=/mnt/s3
+
 ARG S3FS_VERSION=v1.88
 
 RUN apk --update --no-cache add fuse alpine-sdk automake autoconf libxml2-dev fuse-dev curl-dev git bash; \
