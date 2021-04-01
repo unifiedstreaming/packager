@@ -1,13 +1,27 @@
-FROM alpine:3.12
+ARG ALPINEVERSION=3.13
+
+FROM alpine:$ALPINEVERSION
 LABEL maintainer "Unified Streaming <support@unified-streaming.com>"
 
-# Install packages
-RUN wget -q -O /etc/apk/keys/alpine@unified-streaming.com.rsa.pub \
-  https://stable.apk.unified-streaming.com/alpine@unified-streaming.com.rsa.pub
+# ARGs declared before FROM are in a different scope, so need to be stated again
+# https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
+ARG ALPINEVERSION
+ARG BETA_REPO=https://beta.apk.unified-streaming.com/alpine/
+ARG STABLE_REPO=https://stable.apk.unified-streaming.com/alpine/
+ARG VERSION=1.11.0
 
-RUN apk --update \
-        --repository https://stable.apk.unified-streaming.com/alpine/v3.12 \
-        add mp4split=1.10.28-r0
+# Get USP public key
+RUN wget -q -O /etc/apk/keys/alpine@unified-streaming.com.rsa.pub \
+    https://stable.apk.unified-streaming.com/alpine@unified-streaming.com.rsa.pub
+
+# Install Origin
+RUN apk \
+    --update \
+    --repository $BETA_REPO/v$ALPINEVERSION \
+    --repository $STABLE_REPO/v$ALPINEVERSION \
+    add \
+        mp4split~$VERSION \
+&&  rm -f /var/cache/apk/*
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
