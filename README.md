@@ -16,10 +16,12 @@ Docker usage instructions:
 Run a container and pass the usual commands to mp4split.
 
 ```bash
+export UspLicenseKey=<your_license_key> 
+
 docker run \
-  -e USP_LICENSE_KEY=<your_license_key> \
+  -e UspLicenseKey \
   -v $PWD:/data \
-  unifiedstreaming/packager:1.10.28 \
+  unifiedstreaming/packager:1.11.1 \
   -o /data/<output_filename> \
   /data/<input_filename>
 ```
@@ -29,13 +31,27 @@ Custom images
 You can also build your own images using our Alpine repository:
 
 ```Dockerfile
-FROM alpine:3.11
+ARG ALPINEVERSION=3.13
 
-# Install packages
+FROM alpine:$ALPINEVERSION
+
+# Get USP public key
 RUN wget -q -O /etc/apk/keys/alpine@unified-streaming.com.rsa.pub \
-  http://apk.unified-streaming.com/alpine@unified-streaming.com.rsa.pub
+    https://stable.apk.unified-streaming.com/alpine@unified-streaming.com.rsa.pub
+    
+# ARGs declared before FROM are in a different scope, so need to be stated again
+# https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
+ARG ALPINEVERSION
+ARG BETA_REPO=https://beta.apk.unified-streaming.com/alpine/
+ARG STABLE_REPO=https://stable.apk.unified-streaming.com/alpine/
+ARG VERSION=1.11.1
 
-RUN apk --update \
-        --repository http://apk.unified-streaming.com/alpine/v3.11 \
-        add mp4split
+# Install Software
+RUN apk \
+    --update \
+    --repository $BETA_REPO/v$ALPINEVERSION \
+    --repository $STABLE_REPO/v$ALPINEVERSION \
+    add \
+        mp4split~$VERSION \
+&&  rm -f /var/cache/apk/*
 ```
