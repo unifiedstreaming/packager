@@ -19,9 +19,9 @@ Run a container and pass the usual commands to mp4split.
 export UspLicenseKey=<your_license_key> 
 
 docker run \
-  -e UspLicenseKey \
+  -e UspLicenseKey=<license_key> \
   -v $PWD:/data \
-  unifiedstreaming/packager:1.11.1 \
+  unifiedstreaming/packager \
   -o /data/<output_filename> \
   /data/<input_filename>
 ```
