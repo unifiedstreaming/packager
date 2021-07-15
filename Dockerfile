@@ -14,6 +14,9 @@ ARG VERSION=1.11.3
 RUN wget -q -O /etc/apk/keys/alpine@unified-streaming.com.rsa.pub \
     https://stable.apk.unified-streaming.com/alpine@unified-streaming.com.rsa.pub
 
+# Install RClone 
+RUN apk add rclone 
+
 # Install Origin
 RUN apk \
     --update \
@@ -24,6 +27,7 @@ RUN apk \
 &&  rm -f /var/cache/apk/*
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY rclone.conf /root/.config/rclone/rclone.conf
 
 RUN chmod +x /usr/local/bin/entrypoint.sh
 

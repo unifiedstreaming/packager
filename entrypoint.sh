@@ -11,6 +11,8 @@ elif [ -z "$UspLicenseKey" ]
     export UspLicenseKey=${USP_LICENSE_KEY}
 fi
 
+
+
 # first arg is `-f` or `--some-option`
 if [ "${1#-}" != "$1" ]; then
   set -- mp4split "$@"
