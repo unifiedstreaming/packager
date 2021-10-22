@@ -1,3 +1,20 @@
+# DEPRECATED
+
+This repository is deprecated and should no longer be used, please see
+[unifiedstreaming/cli-tools](https://www.github.com/unifiedstreaming/cli-tools/)
+for an updated repository that includes all of the tools.
+
+Updated Docker images are available from Docker Hub:
+
+* `unifiedstreaming/mp4split`
+* `unifiedstreaming/cpix_verify`
+* `unifiedstreaming/manifest_edit`
+* `unifiedstreaming/push_input_stream`
+* `unifiedstreaming/unified_capture`
+* `unifiedstreaming/unified_remix`
+
+---
+
 ![logo](https://raw.githubusercontent.com/unifiedstreaming/origin/master/unifiedstreaming-logo-black.png)
 
 Unified Packager
